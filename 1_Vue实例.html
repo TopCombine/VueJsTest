@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ 
+    vue API：https://cn.vuejs.org/v2/api/
+
+    <!-- 当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。
+    当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。 -->
+    <div id="app">
+        <p>{{ foo }}</p>
+        <!-- 这里的 `foo` 不会更新！ -->
+        <button v-on:click="foo = 'baz'">Change it</button>
+    </div>
+</body>
+
+<script>
+    //一，响应式的
+    var data = { a: 1 }
+    // 该对象被加入到一个 Vue 实例中
+    var vm = new Vue({
+        data: data
+    })
+    // alert(data.a);
+    vm.a == data.a;
+    // alert(vm.a);
+    vm.a = 2;
+    // alert(data.a);
+    data.a = 3;
+    // alert(vm.a);
+
+
+    //二、值得注意的是只有当实例被创建时 data 中存在的属性才是响应式的;
+    //如果不确定的话，那么设置一个初始值就可
+    vm.b = 'hi';
+    var data2 =  {
+        newTodoText: '',
+        visitCount: 0,
+        hideCompletedTodos: false,
+        todos: [],
+        error: null
+    }
+
+
+    //三、设置阻止修改现有的属性(Object.freeze())
+    var obj = {
+        foo: 'bar'
+    }
+    Object.freeze(obj)
+    new Vue({
+        el: '#app',
+        data: obj
+    });
+
+
+    //四、vue实例的属性与方法(以$区别用户定义的属性)
+    var data = { a: 1 }
+    var vm = new Vue({
+        el: '#example',
+        data: data
+    })
+    vm.$data === data // => true
+    vm.$el === document.getElementById('example') // => true
+    // $watch 是一个实例方法
+    vm.$watch('a', function (newValue, oldValue) {
+    // 这个回调将在 `vm.a` 改变后调用
+    });
+
+
+    //五、实例生命周期钩子 (初始化：设置数据监听，编译模板，实例挂在到DOM，生命周期钩子..)
+    new Vue({
+        data: {
+            a: 1
+        },
+        created: function () {
+            // `this` 指向 vm 实例
+            console.log('a is: ' + this.a)
+        }
+    })
+    //其他钩子函数:created,mounted,updated,destroyed
+</script>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ vue API：https://cn.vuejs.org/v2/api/
+
+    <ul id="example-1">
+        <!-- items 是源数据数组并且 item 是数组元素迭代的别名 -->
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+    </ul>
+
+
+    <ul id="example-2">
+        <!-- 拥有对父作用域属性（parentMessage）的完全访问权限，index为索引 -->
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+
+    <!-- 用 of 替代 in 作为分隔符 -->
+    <div v-for="item of items"></div>
+
+
+    <!-- 一个对象的 v-for -->
+    <ul id="v-for-object" class="demo">
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ul>
+
+    <!-- 第三个参数为索引 -->
+    <div v-for="(value, key) in object">
+        {{ key }}: {{ value }}
+    </div>
+    <div v-for="(value, key, index) in object">
+        {{ index }}. {{ key }}: {{ value }}
+    </div>
+
+    <!-- 在遍历对象时，是按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下是一致的。 -->
+
+
+    
+</body>
+
+<script>
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    });
+
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    })
+
+    new Vue({
+        el: '#v-for-object',
+        data: {
+            object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            }
+        }
+    })
+</script>
+
+
+</html>

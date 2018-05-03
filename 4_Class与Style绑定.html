@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ vue API：https://cn.vuejs.org/v2/api/
+
+    <!-- 一、 绑定 HTML Class -->
+    <!-- 方式一 -->
+    <div id="app" v-bind:class="{ active: isActive }"></div>
+
+    <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+    </div>
+
+    <!-- 方式二 -->
+    <div v-bind:class="classObject"></div>
+
+    <!-- 方式三 -->
+    <div v-bind:class="classObject"></div>
+
+
+
+    <!-- 数组语法 -->
+    <div v-bind:class="[activeClass, errorClass]"></div>
+    <!-- 使用对象 -->
+    <div v-bind:class="[{ active: isActive }, errorClass]"></div>
+
+
+    <!-- 用在组件上 -->
+    <my-component class="baz boo"></my-component>
+
+
+
+
+    <!-- 二、绑定内联样式(style) -->
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+    <!-- data: {
+        activeColor: 'red',
+        fontSize: 30
+      } -->
+
+    <!-- 直接绑定一个样式对象 -->
+    <div v-bind:style="styleObject"></div>
+    <!-- data: {
+        styleObject: {
+          color: 'red',
+          fontSize: '13px'
+        }
+      } -->
+
+
+    <!-- 数组语法 -->
+    <div v-bind:style="[baseStyles, overridingStyles]"></div>
+
+    <!-- 自动添加前缀 ，多重值 -->
+
+</body>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            isActive: true,
+            hasError: false
+        }
+    });
+
+
+
+    /* data: {
+      classObject: {
+        active: true,
+        'text-danger': false
+      }
+    } */
+
+
+    /*     data: {
+      isActive: true,
+      error: null
+    },
+    computed: {
+      classObject: function () {
+        return {
+          active: this.isActive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
+    } */
+
+
+    /*     data: {
+      activeClass: 'active',
+      errorClass: 'text-danger'
+    } */
+
+
+    Vue.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    })
+
+</script>
+
+
+</html>
