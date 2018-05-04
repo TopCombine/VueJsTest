@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ 
+    vue API：https://cn.vuejs.org/v2/api/
+
+    <!--     组件名大小写
+    定义组件名的方式有两种：
+    使用 kebab-case  (短横线分隔命名) 定义一个组件时 ： my-component-name
+    使用 PascalCasePascalCase (驼峰式命名) 定义一个组件时：你在引用这个自定义元素时两种命名法都可以使用
+
+    全局注册：
+    Vue.component('my-component-name', {
+        // ... 选项 ...
+    })
+    new Vue({ el: '#app' })
+    <div id="app">
+        <component-a></component-a>
+        <component-b></component-b>
+        <component-c></component-c>
+    </div>
+    局部注册:
+    通过一个普通的 JavaScript 对象来定义组件：
+    var ComponentA = { /* ... */ }
+    var ComponentB = { /* ... */ }
+    var ComponentC = { /* ... */ }
+
+    然后在 components 选项中定义你想要使用的组件：
+    new Vue({
+        el: '#app'
+        components: {
+            'component-a': ComponentA,
+            'component-b': ComponentB
+        }
+    }) -->
+
+    <!-- 模块系统 -->
+    <!-- import/require 使用一个模块系统
+    在模块系统中局部注册
+    如： -->
+    <!-- import ComponentA from './ComponentA'
+    import ComponentC from './ComponentC'
+
+    export default {
+        components: {
+            ComponentA,
+            ComponentC
+        },
+        // ...
+    } -->
+
+    <!-- 基础组件的自动化全局注册(待续) -->
+
+</body>
+
+<script>
+  
+</script>
+
+</html>

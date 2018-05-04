@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ vue API：https://cn.vuejs.org/v2/api/
+
+    <!-- 大小写敏感（postTitle） -->
+    <div id="example">
+        <blog-post post-title="hello!"></blog-post>
+
+        <!-- 静态的和动态的Prop -->
+        <!-- <blog-post title="My journey with Vue"></blog-post>
+        <blog-post v-bind:title="post.title"></blog-post> -->
+
+        传入一个数字 传入一个数组 传入一个对象
+    </div>
+
+    <div id="example2">
+        传入一个对象的所有属性
+        <blog-post-2 v-bind="post"></blog-post-2>
+        <!-- 等价于： -->
+        <!-- <blog-post
+        v-bind:id="post.id"
+        v-bind:title="post.title"
+        ></blog-post> -->
+    </div>
+
+    <!-- 单向数据流(父组件到子组件)
+    两种改变prop的情形：
+    1.这个 prop 用来传递一个初始值；这个子组件接下来希望将其作为一个本地的 prop 数据来使用
+        props: ['initialCounter'],
+            data: function () {
+            return {
+                counter: this.initialCounter
+            }
+        }
+    2.这个 prop 以一种原始的值传入且需要进行转换 
+        props: ['size'],
+            computed: {
+            normalizedSize: function () {
+                return this.size.trim().toLowerCase()
+            }
+        }
+        -->
+
+    <!-- prop验证 -->
+
+    <!-- 类型检查 -->
+    <!-- 原生构造函数：String，Number，Boolean，Function，Object，Array，Symbol  ，自定义函数 -->
+
+    <!-- 非prop的特性
+    替换/合并已有的特性
+    禁用特性继承 -->
+
+
+
+    
+</body>
+
+<script>
+    Vue.component('blog-post', {
+        // 在 JavaScript 中是 camelCase 的
+        props: ['postTitle'],
+        template: '<h3>{{ postTitle }}</h3>'
+    });
+    new Vue({ el: '#example' });
+
+
+    Vue.component('blog-post-2', {
+        // 在 JavaScript 中是 camelCase 的
+        post: {
+            id: 1,
+            title: 'My Journey with Vue'
+        },
+        template: '<h3>{{ postTitle }}</h3>'
+    });
+    new Vue({ el: '#example2' });
+
+    //prop验证
+    Vue.component('my-component', {
+        props: {
+            // 基础的类型检查 (`null` 匹配任何类型)
+            propA: Number,
+            // 多个可能的类型
+            propB: [String, Number],
+            // 必填的字符串
+            propC: {
+                type: String,
+                required: true
+            },
+            // 带有默认值的数字
+            propD: {
+                type: Number,
+                default: 100
+            },
+            // 带有默认值的对象
+            propE: {
+                type: Object,
+                // 对象或数组且一定会从一个工厂函数返回默认值
+                default: function () {
+                    return { message: 'hello' }
+                }
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function (value) {
+                    // 这个值必须匹配下列字符串中的一个
+                    return ['success', 'warning', 'danger'].indexOf(value) !== -1
+                }
+            }
+        }
+    });
+
+
+
+
+</script>
+
+</html>

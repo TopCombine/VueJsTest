@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    在线练习网站：https://jsfiddle.net/chrisvfritz/50wL7mdz/ 
+    vue API：https://cn.vuejs.org/v2/api/
+
+    <div id="components-demo">
+        <button-counter></button-counter>
+        <!-- 
+        组件的复用(注意当点击按钮时，每个组件都会各自独立维护它的 count。
+        因为每用一次组件，就会有一个它的新实例被创建) -->
+        <div id="components-demo">
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+        </div>
+
+        <!-- 一个组件的 data 选项必须是一个函数 -->
+
+        <!-- 组件的组织 -->
+        <!-- 有两种组件的注册类型：全局注册和局部注册 -->
+    </div>
+
+    <!-- 通过 Prop 向子组件传递数据 -->
+    <div id='components-demo-2'>
+        <blog-post title="My journey with Vue"></blog-post>
+        <blog-post title="Blogging with Vue"></blog-post>
+        <blog-post title="Why Vue is so fun"></blog-post>
+    </div>
+
+    <!-- v-bind 来动态传递 prop -->
+    <div id="blog-post-demo-3">
+        <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post>
+    </div>
+
+    <!-- 每个组件必须只有一个根元素 -->
+    <div class="blog-post">
+        <h3>{{ post.title }}</h3>
+        <div v-html="post.content"></div>
+    </div>
+
+    <!-- 通过事件向父级组件发送消息 -->
+    <div id="blog-posts-events-demo">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post-event v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += 0.1"></blog-post-event>
+        </div>
+    </div>
+
+    <!-- 使用事件抛出一个值:$emit 的第二个参数来提供这个值 或者 使用方法实现 -->
+
+
+    <!-- 在组件上使用 -->
+    <!-- 将其 value 特性绑定到一个名叫 value 的 prop 上
+    在其 input 事件被触发时，将新的值通过自定义的 input 事件抛出 -->
+    <custom-input v-model="searchText"></custom-input>
+
+
+    <!-- 通过插槽分发内容 -->
+    <alert-box>
+        Something bad happened.
+    </alert-box>
+
+    <!-- 动态组件 -->
+    <!-- https://jsfiddle.net/chrisvfritz/b2qj69o1/ -->
+
+
+    <!-- 解析 DOM 模板时的注意事项(待继续学习) -->
+    <!-- 如果我们从以下来源使用模板的话，这条限制是不存在的 -->
+
+</body>
+
+<script>
+    // 定义一个名为 button-counter 的新组件
+    Vue.component('button-counter', {
+        // 一个组件的 data 选项必须是一个函数
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    });
+    new Vue({ el: '#components-demo' });
+
+
+    Vue.component('blog-post', {
+        props: ['title'],
+        template: '<h3>{{ title }}</h3>'
+    });
+    new Vue({ el: '#components-demo-2' });
+
+    new Vue({
+        el: '#blog-post-demo-3',
+        data: {
+            posts: [
+                { id: 1, title: 'My journey with Vue' },
+                { id: 2, title: 'Blogging with Vue' },
+                { id: 3, title: 'Why Vue is so fun' },
+            ]
+        }
+    });
+
+    Vue.component('blog-post-event', {
+        props: ['post'],
+        template: `
+            <div class="blog-post">
+                <h3>{{ post.title }}</h3>
+                <button v-on:click="$emit('enlarge-text')">
+                    Enlarge text
+                </button>
+                <div v-html="post.content"></div>
+            </div>
+        `
+    })
+    new Vue({
+        el: '#blog-posts-events-demo',
+        data: {
+            posts: [
+                { id: 1, title: 'My journey with Vue' },
+                { id: 2, title: 'Blogging with Vue' },
+                { id: 3, title: 'Why Vue is so fun' },
+            ],
+            postFontSize: 1
+        }
+    });
+
+
+    Vue.component('custom-input', {
+        props: ['value'],
+        template: `
+            <input
+            v-bind:value="value"
+            v-on:input="$emit('input', $event.target.value)
+            >
+        `
+    })
+
+    Vue.component('alert-box', {
+        template: `
+            <div class="demo-alert-box">
+            <strong>Error!</strong>
+            <slot></slot>
+            </div>
+        `
+    });
+
+
+</script>
+
+</html>

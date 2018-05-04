@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - Vue.js中文文档练习</title>
+    <script src="vue.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>-->
+</head>
+
+<body>
+
+    <!-- 插槽内容
+    具名插槽
+    默认插槽的内容
+    编译作用域
+    作用域插槽 -->
+
+    <navigation-link url="/profile">
+        Your Profile
+    </navigation-link>
+
+    <a v-bind:href="url" class="nav-link">
+        <slot></slot>
+    </a>
+
+</body>
+
+<script>
+
+</script>
+
+</html>
